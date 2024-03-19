@@ -1,26 +1,40 @@
 import { Injectable } from '@nestjs/common';
+import { CreateProductDto } from './dto/create-product.dto';
 
 @Injectable()
 export class ProductsService {
-    private  products = [];
+    private products = [];
 
 
-    getAll(){}
+    getAll() {
+        return this.products
+    }
 
 
-    getById(){}
+    getById( id: string ) {
+        return this.products.find( p => p.id === id )
+    }
 
 
 
 
 
-    create(){}
+    create( productDto: CreateProductDto ) {
+        return this.products.push( {
+            ...productDto,
+            id: Date.now().toString()
+        } )
+    }
 
 
-    update(){}
+    update() { }
 
 
-    remove(){}
+    edit() { }
+
+
+
+    remove() { }
 
 
 
