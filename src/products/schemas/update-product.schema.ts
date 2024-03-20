@@ -82,6 +82,6 @@ export class UpdateProduct {
     characteristics: ProductCharacteristicDto[];
 }
 
-export type EditProductDocument = UpdateProduct & Document;
+export type UpdateProductDocument = UpdateProduct & Document;
 
 export const UpdateProductSchema = SchemaFactory.createForClass( UpdateProduct );
