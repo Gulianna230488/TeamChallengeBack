@@ -40,6 +40,10 @@ export class EditProductDto {
 
     @IsOptional()
     @IsString()
+    category?: string;
+
+    @IsOptional()
+    @IsString()
     description?: string;
 
     @IsOptional()

@@ -45,6 +45,9 @@ export class UpdateProductDto {
     credit: number;
 
     @IsString()
+    category: string;
+
+    @IsString()
     description: string;
 
     @IsString()

@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { IsArray, IsBoolean, IsNumber, IsOptional, IsString, Max, Min, ValidateNested } from 'class-validator';
+import { IsArray, IsBoolean, IsNumber, IsOptional, IsString, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 
 // DTO for product characteristics
@@ -14,9 +14,9 @@ class ProductCharacteristicDto {
     value?: string;
 }
 
-// Product editing scheme
+// Product editing schema
 @Schema()
-export class EditProduct extends Document {
+export class EditProduct {
     @Prop( { required: false } )
     @IsOptional()
     @IsString()
@@ -50,6 +50,11 @@ export class EditProduct extends Document {
     @Prop( { required: false } )
     @IsOptional()
     @IsString()
+    category?: string;
+
+    @Prop( { required: false } )
+    @IsOptional()
+    @IsString()
     description?: string;
 
     @Prop( { required: false } )
@@ -73,12 +78,6 @@ export class EditProduct extends Document {
     @IsBoolean()
     inStock?: boolean;
 
-    @Prop( { required: false, type: [ String ] } )
-    @IsOptional()
-    @IsArray()
-    @IsString( { each: true } )
-    tags?: string[];
-
     @Prop( { required: false, type: [ ProductCharacteristicDto ] } )
     @IsOptional()
     @IsArray()
@@ -86,5 +85,7 @@ export class EditProduct extends Document {
     @Type( () => ProductCharacteristicDto )
     characteristics?: ProductCharacteristicDto[];
 }
+
+export type EditProductDocument = EditProduct & Document;
 
 export const EditProductSchema = SchemaFactory.createForClass( EditProduct );

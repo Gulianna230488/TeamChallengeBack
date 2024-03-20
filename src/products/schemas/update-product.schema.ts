@@ -14,7 +14,7 @@ class ProductCharacteristicDto {
 
 // Update product scheme
 @Schema()
-export class UpdateProduct extends Document {
+export class UpdateProduct {
     @Prop( { required: true } )
     @IsString()
     image: string;
@@ -43,6 +43,10 @@ export class UpdateProduct extends Document {
     @Prop( { required: true, type: Number } )
     @IsNumber()
     credit: number;
+
+    @Prop( { required: true } )
+    @IsString()
+    category: string;
 
     @Prop( { required: true } )
     @IsString()
@@ -77,5 +81,7 @@ export class UpdateProduct extends Document {
     @Type( () => ProductCharacteristicDto )
     characteristics: ProductCharacteristicDto[];
 }
+
+export type EditProductDocument = UpdateProduct & Document;
 
 export const UpdateProductSchema = SchemaFactory.createForClass( UpdateProduct );
