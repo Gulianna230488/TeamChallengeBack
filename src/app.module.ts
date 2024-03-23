@@ -12,7 +12,7 @@ import { ConfigModule } from '@nestjs/config';
       isGlobal: true,
     }),
     AuthModule,
-    MongooseModule.forRoot(`mongodb+srv://Pawel:jG5fYL5oPAXAOM04@cluster0.yhypksh.mongodb.net/my-contacts?retryWrites=true&w=majority`)],
+    MongooseModule.forRoot(process.env.DB_CONNECT)],
   controllers: [AppController],
   providers: [AppService],
 })

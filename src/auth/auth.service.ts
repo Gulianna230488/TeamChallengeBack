@@ -17,13 +17,8 @@ export class AuthService {
 	) {}
 
 	async signUp(signUpDto: SignUpDto): Promise<{token: string}> {
-		const {username, password, email} = signUpDto;
+		const { firstname, lastname, password, phone, email} = signUpDto;
         
-		const isDuplicateUsername = await this.userModel.findOne({username});
-		if(isDuplicateUsername) {
-		throw new UnauthorizedException('User with the same username is already exists');
-        }
-
 		const isDuplicateEmail = await this.userModel.findOne({email});
 		if(isDuplicateEmail) {
 		throw new UnauthorizedException('User with the same email is already exists');
@@ -32,7 +27,9 @@ export class AuthService {
 		const hashedPassword = await bcrypt.hash(password, 10);
      
 		const user = await this.userModel.create({
-			username,
+			firstname,
+			lastname,
+			phone,
 			password: hashedPassword,
 			email,
 		});
