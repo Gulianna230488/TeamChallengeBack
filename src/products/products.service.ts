@@ -5,7 +5,7 @@ import { Product, ProductDocument } from './schemas/product.schema';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { EditProductDto } from './dto/edit-product.dto';
-
+import { SearchDto } from './dto/search.dto';
 
 @Injectable()
 export class ProductsService {
@@ -19,6 +19,29 @@ export class ProductsService {
 
     async getById( id: string ): Promise<Product> {
         return this.productModel.findById( id );
+    }
+
+    async getByCategory( category: string ): Promise<Product[]> {
+        return this.productModel.find( { category } ).exec();
+    }
+
+    async getByName( name: string ): Promise<Product[]> {
+        return this.productModel.find( { name } ).exec();
+    }
+
+    async findProducts( query: string, category: string ): Promise<Product[]> {
+        const regex = new RegExp( query, 'i' );
+        let searchQuery: any = {};
+
+        if ( query ) {
+            searchQuery.name = regex;
+        }
+
+        if ( category ) {
+            searchQuery.category = category;
+        }
+
+        return this.productModel.find( searchQuery ).exec();
     }
 
     async create( productDto: CreateProductDto ): Promise<Product> {
