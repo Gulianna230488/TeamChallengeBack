@@ -5,7 +5,7 @@ import { Product, ProductDocument } from './schemas/product.schema';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { EditProductDto } from './dto/edit-product.dto';
-import { SearchDto } from './dto/search.dto';
+
 
 @Injectable()
 export class ProductsService {

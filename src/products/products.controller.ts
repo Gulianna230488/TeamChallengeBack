@@ -1,11 +1,12 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { EditProductDto } from './dto/edit-product.dto';
 import { Product } from './schemas/product.schema';
-import { ApiOperation, ApiParam, ApiResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { SearchDto } from './dto/search.dto';
+import { Admin, AdminGuard } from 'src/auth/guards/admin.guard';
 
 @ApiTags( 'products' )
 @Controller( 'products' )
@@ -29,6 +30,8 @@ export class ProductsController {
     }
 
     @Post()
+    @UseGuards( AdminGuard )
+    @Admin()
     @HttpCode( HttpStatus.CREATED )
     @ApiOperation( { summary: 'Create a product' } )
     @ApiResponse( { status: HttpStatus.CREATED, description: 'The product', type: Product } )
@@ -37,6 +40,8 @@ export class ProductsController {
     }
 
     @Delete( ':id' )
+    @UseGuards( AdminGuard )
+    @Admin()
     @HttpCode( HttpStatus.NO_CONTENT )
     @ApiOperation( { summary: 'Delete a product' } )
     @ApiParam( { name: 'id', description: 'The product ID' } )
@@ -46,6 +51,8 @@ export class ProductsController {
     }
 
     @Put( ':id' )
+    @UseGuards( AdminGuard )
+    @Admin()
     @HttpCode( HttpStatus.OK )
     @ApiOperation( { summary: 'Update a product' } )
     @ApiParam( { name: 'id', description: 'The product ID' } )
@@ -55,6 +62,8 @@ export class ProductsController {
     }
 
     @Patch( ':id' )
+    @UseGuards( AdminGuard )
+    @Admin()
     @HttpCode( HttpStatus.OK )
     @ApiOperation( { summary: 'Edit a product' } )
     @ApiParam( { name: 'id', description: 'The product ID' } )
