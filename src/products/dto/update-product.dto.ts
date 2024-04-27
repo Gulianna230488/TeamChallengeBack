@@ -1,23 +1,14 @@
-import { Type } from 'class-transformer';
 import {
     IsArray,
     IsBoolean,
     IsNumber,
     IsOptional,
     IsString,
-    Max,
-    Min,
-    ValidateNested
+    // Max,
+    // Min,
+    // ValidateNested
 } from 'class-validator';
 
-class ProductCharacteristicDto {
-
-    @IsString()
-    name: string;
-
-    @IsString()
-    value: string;
-}
 
 export class UpdateProductDto {
     @IsString()
@@ -26,14 +17,6 @@ export class UpdateProductDto {
     @IsString()
     title: string;
 
-    @IsString()
-    link: string;
-
-    @Min( 1 )
-    @Max( 5 )
-    @IsNumber()
-    initialRating: number;
-
     @IsNumber()
     price: number;
 
@@ -41,35 +24,76 @@ export class UpdateProductDto {
     @IsNumber()
     oldPrice?: number;
 
+    @IsBoolean()
+    bestPrice: boolean;
+
     @IsNumber()
-    credit: number;
-
-    @IsString()
-    category: string;
-
-    @IsString()
-    description: string;
-
-    @IsString()
-    advantages: string;
-
-    @IsOptional()
-    @IsString()
-    disAdvantages?: string;
-
-    @IsArray()
-    @IsString( { each: true } )
-    categories: string[];
+    quantity: number;
 
     @IsBoolean()
-    inStock: boolean;
+    inCart: boolean;
+
+    @IsBoolean()
+    favorite: boolean;
+
+    @IsBoolean()
+    salesLeader: boolean;
+
+    @IsBoolean()
+    newProduct: boolean;
+
+    @IsString()
+    subCategoryId: string;
 
     @IsArray()
-    @IsString( { each: true } )
-    tags: string[];
-
-    @IsArray()
-    @ValidateNested()
-    @Type( () => ProductCharacteristicDto )
-    characteristics: ProductCharacteristicDto[];
+    generalSpecifications: string[];
 }
+
+
+// import { Type } from 'class-transformer';
+
+// class ProductCharacteristicDto {
+
+//     @IsString()
+//     name: string;
+
+//     @IsString()
+//     value: string;
+// }
+
+// @IsString()
+// link: string;
+
+// @Min( 1 )
+// @Max( 5 )
+// @IsNumber()
+// initialRating: number;
+
+    // @IsString()
+    // subCategory: string;
+
+    // @IsString()
+    // description: string;
+
+    // @IsString()
+    // advantages: string;
+
+    // @IsOptional()
+    // @IsString()
+    // disAdvantages?: string;
+
+    // @IsArray()
+    // @IsString( { each: true } )
+    // categories: string[];
+
+    // @IsBoolean()
+    // inStock: boolean; 
+
+    // @IsArray()
+    // @IsString( { each: true } )
+    // tags: string[];
+
+    // @IsArray()
+    // @ValidateNested()
+    // @Type( () => ProductCharacteristicDto )
+    // characteristics: ProductCharacteristicDto[];
