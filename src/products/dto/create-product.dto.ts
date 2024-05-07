@@ -10,7 +10,6 @@ import {
     // ValidateNested, 
 } from 'class-validator';
 
-
 export class CreateProductDto {
     @IsString()
     image: string;
@@ -43,11 +42,15 @@ export class CreateProductDto {
     @IsBoolean()
     newProduct: boolean;
 
-    @IsString()
-    subCategoryId: string;
+    @IsArray()
+    categoryId: string[];    
+
+    @IsArray()
+    subCategoryId: string[];
 
     @IsArray()
     generalSpecifications: string[];
+
 }
 
 // import { Type } from 'class-transformer';

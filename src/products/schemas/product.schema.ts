@@ -1,9 +1,16 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, SchemaTypes } from 'mongoose';
 import {
-    IsArray, IsBoolean, IsNumber, IsOptional, IsString, Max,
+    IsArray, 
+    IsBoolean, 
+    IsNumber, 
+    IsOptional, 
+    IsString, 
+    // Max,
     //  Min, ValidateNested 
 } from 'class-validator';
+
+import { SubCategoryDocument } from 'src/subCategory/schemas/subCategory.schema';
 
 // Product scheme
 @Schema()
@@ -50,7 +57,7 @@ export class Product {
     newProduct: boolean;
 
     @Prop( { type: SchemaTypes.ObjectId, ref: 'SubCategory' } )
-    owner: string; //Временно пока так
+    owner: SubCategoryDocument; 
 
     @IsArray()
     @Prop( { type: SchemaTypes.ObjectId, ref: 'GeneralSpecification' } )

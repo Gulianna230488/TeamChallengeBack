@@ -42,11 +42,20 @@ export class UpdateProductDto {
     @IsBoolean()
     newProduct: boolean;
 
-    @IsString()
-    subCategoryId: string;
-
+    @IsOptional()
     @IsArray()
-    generalSpecifications: string[];
+    categoryId?: string[];
+
+    @IsOptional()
+    @IsArray()
+    subCategoryId?: string[];
+
+    @IsOptional()
+    @IsArray()
+    generalSpecifications?: string[];
+
+    @IsString()
+    productId: string;
 }
 
 

@@ -48,12 +48,19 @@ export class EditProductDto {
     newProduct?: boolean;
 
     @IsOptional()
-    @IsString()
-    subCategoryId?: string;
+    @IsArray()
+    categoryId?: string[];
+
+    @IsOptional()
+    @IsArray()
+    subCategoryId?: string[];
 
     @IsOptional()
     @IsArray()
     generalSpecifications?: string[];
+
+    @IsString()
+    productId: string;
 }
 
 // import { Type } from 'class-transformer';
