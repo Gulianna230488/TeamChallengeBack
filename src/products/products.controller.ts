@@ -81,6 +81,6 @@ export class ProductsController {
     async getProductsBySearch( @Query() searchDto: SearchDto ): Promise<Product[]> {
         const { q, category } = searchDto;
         return this.productsService.findProducts( q, category );
-    }
+    }                                                             ///Тут у меня вопрос, правильна ли эта функция
 }
 

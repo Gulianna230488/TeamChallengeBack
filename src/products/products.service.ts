@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
+
 import { Product, ProductDocument } from './schemas/product.schema';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
@@ -21,9 +22,9 @@ export class ProductsService {
         return this.productModel.findById( id );
     }
 
-    async getByCategory( category: string ): Promise<Product[]> {
-        return this.productModel.find( { category } ).exec();
-    }
+    // async getByCategory( category: string ): Promise<Product[]> {
+    //     return this.productModel.find( { category } ).exec();
+    // }
 
     async getByName( name: string ): Promise<Product[]> {
         return this.productModel.find( { name } ).exec();
