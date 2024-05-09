@@ -22,7 +22,7 @@ export class SubCategoryController {
 
     @Get( ':id' )
     @HttpCode( HttpStatus.OK )
-    @ApiOperation( { summary: 'Get a category by ID' } )
+    @ApiOperation( { summary: 'Get a subcategory by ID' } )
     @ApiParam( { name: 'id', description: 'The product ID' } )
     @ApiResponse( { status: HttpStatus.OK, description: 'The subcategory', type: SubCategory } )
     async getOne( @Param( 'id' ) id: string ): Promise<SubCategory> {
@@ -33,7 +33,7 @@ export class SubCategoryController {
     @UseGuards( AdminGuard )
     @Admin()
     @HttpCode( HttpStatus.CREATED )
-    @ApiOperation( { summary: 'Create a category' } )
+    @ApiOperation( { summary: 'Create a subcategory' } )
     @ApiResponse( { status: HttpStatus.CREATED, description: 'The category', type: SubCategory } )
     async create( @Body() createCategoryDto: CreateSubCategoryDto ): Promise<SubCategory> {
         return this.subCategoryService.create( createCategoryDto );
@@ -54,9 +54,9 @@ export class SubCategoryController {
     @UseGuards( AdminGuard )
     @Admin()
     @HttpCode( HttpStatus.OK )
-    @ApiOperation( { summary: 'Update a category' } )
-    @ApiParam( { name: 'id', description: 'The category ID' } )
-    @ApiResponse( { status: HttpStatus.OK, description: 'The updated category', type: SubCategory } )
+    @ApiOperation( { summary: 'Update a subcategory' } )
+    @ApiParam( { name: 'id', description: 'The subcategory ID' } )
+    @ApiResponse( { status: HttpStatus.OK, description: 'The updated subcategory', type: SubCategory } )
     async update( @Param( 'id' ) id: string, @Body() updateCategoryDto: UpdateSubCategoryDto ): Promise<SubCategory> {
         return this.subCategoryService.update( id, updateCategoryDto );
     }
@@ -66,7 +66,7 @@ export class SubCategoryController {
     @Admin()
     @HttpCode( HttpStatus.OK )
     @ApiOperation( { summary: 'Edit a subcategory' } )
-    @ApiParam( { name: 'id', description: 'The category ID' } )
+    @ApiParam( { name: 'id', description: 'The subcategory ID' } )
     @ApiResponse( { status: HttpStatus.OK, description: 'The edited subcategory', type: SubCategory } )
     async edit( @Param( 'id' ) id: string, @Body() editSubCategoryDto: EditSubCategoryDto ): Promise<SubCategory> {
         return this.subCategoryService.edit( id, editSubCategoryDto );
