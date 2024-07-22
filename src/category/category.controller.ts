@@ -3,7 +3,7 @@ import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { CategoryService } from './category.service';
 import { Category } from './schemas/category.schema';
-import { Admin, AdminGuard } from 'src/auth/guards/admin.guard';
+import { Admin, AdminGuard } from '../auth/guards/admin.guard';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { EditCategoryDto } from './dto/edit-category.dto';

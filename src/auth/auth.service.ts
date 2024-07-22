@@ -11,50 +11,59 @@ import { LoginDto } from "./dto/login.dto";
 @Injectable()
 export class AuthService {
 	constructor(
-		@InjectModel(User.name)
+		@InjectModel( User.name )
 		private userModel: Model<User>,
 		private jwtService: JwtService,
-	) {}
+	) { }
 
-	async signUp(signUpDto: SignUpDto): Promise<{token: string}> {
-		const { firstname, lastname, password, phone, email} = signUpDto;
-        
-		const isDuplicateEmail = await this.userModel.findOne({email});
-		if(isDuplicateEmail) {
-		throw new UnauthorizedException('User with the same email is already exists');
-        }
+	async signUp( signUpDto: SignUpDto ): Promise<{ token: string }> {
+		const { firstname, lastname, password, phone, email } = signUpDto;
 
-		const hashedPassword = await bcrypt.hash(password, 10);
-     
-		const user = await this.userModel.create({
+		const isDuplicateEmail = await this.userModel.findOne( { email } );
+		if ( isDuplicateEmail ) {
+			throw new UnauthorizedException( 'User with the same email is already exists' );
+		}
+
+		const hashedPassword = await bcrypt.hash( password, 10 );
+
+		const user = await this.userModel.create( {
 			firstname,
 			lastname,
 			phone,
 			password: hashedPassword,
 			email,
-		});
+			role: 'user', // по замовчуванню призначаємо роль 'user'
+		} );
 
-		const token = this.jwtService.sign({ id: user._id});
+		await user.save();
 
-		return {token};
+		const payload = {
+			username: user.email,
+			sub: user._id,
+			role: user.role
+		};
+
+		const token = this.jwtService.sign( payload );
+
+		return { token };
 	}
 
-	async login(loginDto: LoginDto): Promise<{token: string}> {
-		const {email, password} = loginDto;
-		const user = await this.userModel.findOne({email});
+	async login( loginDto: LoginDto ): Promise<{ token: string }> {
+		const { email, password } = loginDto;
+		const user = await this.userModel.findOne( { email } );
 
-		if(!user) {
-			throw new UnauthorizedException('Invalid email or password');
+		if ( !user || !( await bcrypt.compare( password, user.password ) ) ) {
+			throw new Error( 'Invalid credentials' );
 		}
 
-		const isPasswordMatched = await bcrypt.compare(password, user.password);
-
-		if(!isPasswordMatched) {
-			throw new UnauthorizedException('Invalid email or password');
+		const payload = {
+			username: user.email,
+			sub: user._id,
+			role: user.role
 		}
 
-		const token = this.jwtService.sign({ id: user._id});
+		const token = this.jwtService.sign( payload );
 
-		return {token};
- 	}
+		return { token };
+	}
 }
